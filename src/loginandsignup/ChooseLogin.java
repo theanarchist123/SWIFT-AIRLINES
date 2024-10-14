@@ -25,7 +25,8 @@ public class ChooseLogin extends javax.swing.JFrame {
         );
         jButton2.addActionListener(
                 a->{
-                    new OFFICEGUI();
+                    String ssn = "xyz";
+                    new OfficeLogin();
                     dispose();
                 }
         );

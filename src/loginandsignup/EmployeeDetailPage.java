@@ -3,27 +3,57 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import javax.swing.*;
+import java.sql.*;
+
 
 /**
  *
  * @author admin
  */
 public class EmployeeDetailPage extends javax.swing.JFrame {
+    LoginAndSignUp l1 = new LoginAndSignUp();
+    Connection c1 = l1.connect_database();
 
     /**
      * Creates new form EmployeeDetailPage
      */
-    public EmployeeDetailPage() {
+    public EmployeeDetailPage(String ssn) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        try {
+        ResultSet rs = l1.fetch_emp_info(c1, ssn);
+        if (rs.next()) {
+            // Assuming the columns are in this order: name, age, salary
+            jTextField2.setText(rs.getString("name")); // Set name in text field
+            jTextField2.setEditable(false); // Make it non-editable if needed
+            
+            jTextField5.setText(String.valueOf(rs.getInt("age"))); // Set age
+            jTextField5.setEditable(false); // Make it non-editable if needed
+            
+            jTextField.setText(String.valueOf(rs.getDouble("salary"))); // Set salary
+            jTextField.setEditable(false); // Make it non-editable if needed
+            
+            jTextField3.setText(rs.getString("ssn"));
+            jTextField3.setEditable(false); 
+            // Display SSN in a label or appropriate field
+        } else {
+            JOptionPane.showMessageDialog(this, "No employee found with this SSN.");
+        }
+    } catch (SQLException e) {
+        System.out.println("Error displaying employee info: " + e.getMessage());
+    }
+
+        
         jButton1.addActionListener(
                 l->{
                     System.exit(0);
                 }
         );
-        
     }
+        
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -43,17 +73,18 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel11 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
-        jLabel7 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jTextField = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -117,84 +148,93 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(226, 232, 221));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        jLabel4.setText("Employee Information:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Segoe UI Black", 1, 15)); // NOI18N
+        jLabel4.setText("(Name, Age, Salary, SSN)");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 160, 21));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 220, 20));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-name-39.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 40, 40));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-security-user-female-39.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 40, 40));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 160, 20));
-
-        jLabel11.setBackground(new java.awt.Color(226, 232, 221));
-        jLabel11.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel11.setText(" Location");
-        jLabel11.setToolTipText("");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 180, 40));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-age-30.png"))); // NOI18N
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 30, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-salary-34.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, 34, 34));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, 34, 34));
         jLabel3.getAccessibleContext().setAccessibleName("");
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 270, 160, 20));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/—Pngtree—vector office icon_4022077 (1).png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 30, 40));
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 340, 170, 10));
-
-        jTextField1.setBackground(new java.awt.Color(226, 232, 221));
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jTextField1.setText("Department");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 150, 30));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 160, 10));
 
         jTextField2.setBackground(new java.awt.Color(226, 232, 221));
         jTextField2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jTextField2.setText("Age");
+        jTextField2.setText("Name");
         jTextField2.setBorder(null);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 160, 30));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 160, 30));
 
         jTextField3.setBackground(new java.awt.Color(226, 232, 221));
         jTextField3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jTextField3.setText("Salary");
+        jTextField3.setText("Social Security Number");
         jTextField3.setBorder(null);
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 150, 30));
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 240, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/teamwork-march-rs10900 (1).jpg"))); // NOI18N
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 400, 430));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 0, 400, 520));
 
         jButton1.setBackground(new java.awt.Color(123, 75, 148));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("EXIT");
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 140, 50));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 150, 50));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 810, 430));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8-name-39.png"))); // NOI18N
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 40, 40));
+
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 170, 20));
+
+        jTextField.setBackground(new java.awt.Color(226, 232, 221));
+        jTextField.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jTextField.setText("Salary");
+        jTextField.setBorder(null);
+        jTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 150, 30));
+
+        jTextField5.setBackground(new java.awt.Color(226, 232, 221));
+        jTextField5.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jTextField5.setText("Age");
+        jTextField5.setBorder(null);
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 160, 30));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel7.setText("Employee Information:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 300, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 810, 520));
 
         jPanel2.setBackground(new java.awt.Color(123, 75, 148));
 
@@ -219,9 +259,9 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 520, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
                 .addComponent(jLabel9)
-                .addGap(20, 20, 20))
+                .addGap(31, 31, 31))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,10 +282,6 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formComponentHidden
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
@@ -258,47 +294,46 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
             dispose();        // TODO add your handling code here:
     }//GEN-LAST:event_jLabel9MouseClicked
 
+    private void jTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+public static void main(String args[]) {
+    // Set the Nimbus look and feel
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EmployeeDetailPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EmployeeDetailPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EmployeeDetailPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EmployeeDetailPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EmployeeDetailPage().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(EmployeeDetailPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+
+    // Create and display the form
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            // Assuming you have a way to get SSN from login
+            String ssn = "123-45-6789"; // Replace this with actual SSN input
+            new EmployeeDetailPage(ssn).setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -310,12 +345,13 @@ public class EmployeeDetailPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JTextField jTextField;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField5;
     // End of variables declaration//GEN-END:variables
 }

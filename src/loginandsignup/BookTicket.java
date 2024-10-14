@@ -3,34 +3,117 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import javax.swing.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author admin
  */
 public class BookTicket extends javax.swing.JFrame {
+    LoginAndSignUp l1 = new LoginAndSignUp();
+    Connection c1 = l1.connect_database();
+    private static BData b1;
+    private String z1,n1;
+
 
     /**
      * Creates new form BookTicket
      */
     public BookTicket() {
+        
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+
+        choice1.add("<none>");
+        choice1.add("New York");
+        choice1.add("Paris");
+        choice1.add("Tokyo");
+        choice1.add("Sydney");
+        choice1.add("Dubai");
+        choice1.add("Toronto");
+        choice1.add("Los Angeles");
+        choice1.add("Madrid");
+        choice1.add("Rome");
+        choice1.add("Chicago");
+        choice1.add("London");
+        choice1.add("Berlin");
+        choice1.add("Seoul");
+        choice1.add("Melbourne");
+        choice1.add("Mumbai");
+        choice1.add("Vancouver");
+        choice1.add("San Francisco");
+        choice1.add("Athens");
+        choice1.add("Boston");
+        choice2.add(" ");
+        choice2.add("London");
+        choice2.add("Berlin");
+        choice2.add("Seoul");
+        choice2.add("Melbourne");
+        choice2.add("Mumbai");
+        choice2.add("Vancouver");
+        choice2.add("San Francisco");
+        choice2.add("Athens");
+        choice2.add("Boston");
+                choice2.add("<none>");
+        choice2.add("New York");
+        choice2.add("Paris");
+        choice2.add("Tokyo");
+        choice2.add("Sydney");
+        choice2.add("Dubai");
+        choice2.add("Toronto");
+        choice2.add("Los Angeles");
+        choice2.add("Madrid");
+        choice2.add("Rome");
+        choice2.add("Chicago");
+        choice2.add("<none>");
+        choice3.add("8");
+        choice3.add("1");
+        choice3.add("5");
+        choice3.add("2");
+        choice3.add("3");
         jButton1.addActionListener(
                 a->{
-                    new Flightg1();
+                    String date = jTextField1.getText();
+                    String from = choice1.getSelectedItem();
+                    String to = choice2.getSelectedItem();
+                            z1 = choice3.getSelectedItem();
+                            n1 = jTextField1.getText();
+                            
+                            b1 = new BData(z1,n1);
+                    l1.setTravelInfo(date, from, to);
+                    l1.setSelectedDepartTime(choice3.getSelectedItem());
+            try {
+                new Flightg1(l1, c1);
+            } catch (SQLException ex) {
+                Logger.getLogger(BookTicket.class.getName()).log(Level.SEVERE, null, ex);
+            }
                     dispose();
-                }
-        );
-        jRadioButton2.addActionListener(
-                a->{
-                    new BookTicket1();
-                    dispose();
-                }
-        );
-    }
 
+                }
+        );
+
+    }
+    public static class BData{
+        private String j1;
+        private String v1;
+        public BData(String j1,String v1){
+            this.j1 = j1;
+            this.v1 = v1;
+        }
+        public String getTime(){
+            return j1;
+        }
+        public String getDate(){
+            return v1;
+        }
+    }
+    public static BData getBData(){
+        return b1;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,28 +126,27 @@ public class BookTicket extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         choice1 = new java.awt.Choice();
         choice2 = new java.awt.Choice();
         jLabel3 = new javax.swing.JLabel();
-        choice3 = new java.awt.Choice();
         jButton1 = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jSeparator1 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        choice3 = new java.awt.Choice();
+        jTextField1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setFocusTraversalPolicyProvider(true);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel4.setBackground(new java.awt.Color(123, 75, 148));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -79,101 +161,80 @@ public class BookTicket extends javax.swing.JFrame {
         jLabel2.setText("Let's go places!");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 105, 140, -1));
 
-        jRadioButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton1.setText("One Way");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 171, 109, 29));
-
-        jRadioButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButton2.setText("Round Trip");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
-        jPanel4.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(179, 171, 130, -1));
-
         choice1.setBackground(new java.awt.Color(255, 255, 255));
         choice1.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
         choice1.setName(""); // NOI18N
-        jPanel4.add(choice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(126, 231, 140, 30));
+        jPanel4.add(choice1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 150, 50));
 
         choice2.setCursor(new java.awt.Cursor(java.awt.Cursor.CROSSHAIR_CURSOR));
-        jPanel4.add(choice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(351, 238, 139, -1));
+        jPanel4.add(choice2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 220, 120, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Amount:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 120, -1));
-        jPanel4.add(choice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 289, 140, 30));
+        jLabel3.setText("Enter date of travel:");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 200, -1));
 
         jButton1.setBackground(new java.awt.Color(51, 0, 153));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Search Flight");
         jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 190, 50));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 190, 50));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/main-logo-white-transparent (1).png"))); // NOI18N
-        jLabel6.setText("jLabel6");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(453, 20, 231, 102));
-
-        jLabel4.setFont(new java.awt.Font("Monotype Corsiva", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Swift Journeys, Lasting Memories..");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 120, -1, -1));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI Black", 1, 23)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("From:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, 31));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 80, 50));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Black", 1, 17)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Which type of trip would u like to book?");
         jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 134, -1, 31));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI Black", 1, 23)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("To:");
-        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(304, 238, 37, -1));
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 50, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Select Time of Travel:");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 210, -1));
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Select Time of Travel:");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 210, 60));
 
-        jTextField1.setBackground(new java.awt.Color(242, 242, 242));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Untitled-design-2022-10-27T161048.610 (1).jpg"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 530));
+
+        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 320, 530));
+
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel4.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, 210, 10));
+        jPanel4.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 190, 20));
+        jPanel4.add(choice3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 190, 40));
+
+        jTextField1.setBackground(new java.awt.Color(123, 75, 148));
+        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField1.setText("YYYY-MM-DD");
         jTextField1.setBorder(null);
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 180, 30));
+        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 360, 210, 30));
 
-        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel4.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 190, 20));
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/photo-1416163026265-0bc340a710e4 (1).jpeg"))); // NOI18N
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, 480));
-
-        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 690, -1));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,7 +264,7 @@ public class BookTicket extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        java.awt.EventQueue.invokeLater(new Runnable(){
             public void run() {
                 new BookTicket().setVisible(true);
             }
@@ -221,14 +282,12 @@ public class BookTicket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

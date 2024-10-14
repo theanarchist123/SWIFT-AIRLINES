@@ -3,24 +3,56 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package loginandsignup;
+import java.sql.*;
+import java.util.Arrays;
+import javax.swing.*;
+import java.sql.Statement;
+import loginandsignup.LoginAndSignUp;
+
+
 
 /**
  *
  * @author admin
  */
 public class emp1 extends javax.swing.JFrame {
+    LoginAndSignUp l1 = new LoginAndSignUp();
+    Connection c1 =l1.connect_database();
+    Statement y1;
+    JButton b1;
+    JTextField t1;
+    JPasswordField h1;
+    
 
-    /**
-     * Creates new form emp1
-     */
+
     public emp1() {
+        Statement s;
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
         jButton1.addActionListener(
+                
                 l->{
-                    new EmployeeDetailPage();
-                    dispose();
+                    String i1 = empname.getText();
+                    String k1 = new String(jPasswordField1.getPassword());
+                    
+                    if(i1.length()!=0 && k1.length()!=0){
+                                
+                                
+                                    JOptionPane.showMessageDialog(null,"Login Successful!");
+                                    String ssnEntered = empname.getText(); // Assuming you have a text field for SSN
+                                    new EmployeeDetailPage(ssnEntered);
+                                    
+                                    dispose();
+}
+                                else{
+                                    JOptionPane.showMessageDialog(null, "Login unsuccessful!");
+                                    empname.setText(" ");
+                                    jPasswordField1.setText(" ");
+                                }
+                                
+
+                    
                 }
         );
     }
@@ -49,7 +81,7 @@ public class emp1 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        empname = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jPasswordField1 = new javax.swing.JPasswordField();
@@ -175,10 +207,10 @@ public class emp1 extends javax.swing.JFrame {
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
-        jTextField1.setBackground(new java.awt.Color(226, 232, 221));
-        jTextField1.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
-        jTextField1.setText("  Username");
-        jTextField1.setBorder(null);
+        empname.setBackground(new java.awt.Color(226, 232, 221));
+        empname.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        empname.setText("  Username");
+        empname.setBorder(null);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/user (1).png"))); // NOI18N
 
@@ -225,10 +257,10 @@ public class emp1 extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(empname, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
-                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(73, 73, 73))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -252,7 +284,7 @@ public class emp1 extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(43, 43, 43)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(empname, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,6 +361,7 @@ public class emp1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField empname;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -350,6 +383,5 @@ public class emp1 extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
